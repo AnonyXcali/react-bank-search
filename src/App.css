@@ -1,0 +1,220 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+button{
+  background: none;
+  border: none;
+}
+
+.userInput{
+    display: flex;
+    position: relative;
+    top: 100px;
+    left: 300px;
+    align-items: baseline;
+    width: 57%;
+}
+
+.citySelect{
+  width: 300px;
+  height: 30px;
+  background-color: white;
+  color: #787878;
+}
+
+.inputBox{
+  flex-grow: 1;
+  height: 30px;
+  margin-left: 16px;
+}
+
+.inputBox::placeholder{
+  position: relative;
+  left:3%;
+
+}
+
+input,
+select{
+  border:0.5px solid #c8dde0
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+
+.results{
+  position: relative;
+  top: 100px;
+  left: 300px;
+  margin-top:10px;
+}
+
+
+
+table {
+  font-family: Helvetica;
+  border-collapse: collapse;
+  width: 57%;
+  margin-top:-34px;
+}
+
+td, th {
+  text-align: left;
+  padding: 13px;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(200, 221, 224, 0.31);
+}
+
+.favouriteBtn{
+  float: right;
+  background: none;
+  border: none;
+  color: #c8dde0;
+  font-size: 15px;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+
+.noData{
+  font-size: 300px;
+  color: rgba(200, 221, 224, 0.31);
+  position: relative;
+  top: 180px;
+  left: 39%;
+}
+
+.header{
+  position: absolute;
+  top: 10px;
+  left: 300px;
+  color:#131010;
+}
+
+.bar{
+  background:rgba(200, 221, 224, 0.31);;
+  height:8px;
+  width:20%;
+  position: absolute;
+}
+.bar2{
+  top:53px;
+}
+.bar1{
+  top:41px;
+}
+
+.pagination{
+  position: relative;
+  left: 710px;
+  bottom: 53px;
+}
+
+.pgntnBtns{
+  background: none;
+  border:none;
+  cursor:pointer;
+}
+
+.underlineClass{
+  text-decoration: underline;
+}
+
+.noUnderlineClass{
+  text-decoration: none;
+}
+
+.showingResultsFor{
+  margin-bottom: 34px;
+}
+
+.paginationText{
+  position: absolute;
+  left: -55px;
+  bottom: -8px;
+  font-size: 10px;
+}
+
+.pageNumbers{
+  display:flex;
+  position: relative;
+  left: 26%;
+  width: 31%;
+  margin-top:10px;
+}
+
+.pageNumber{
+  float: right;
+  cursor: pointer;
+}
+
+.isFavourite{
+  color:gold;
+}
+
+.favIcon{
+  pointer-events: all;
+}
+
+.favouriteLink{
+  position: relative;
+  left: 69%;
+  top: 48px;
+}
+
+.favouriteLink a{
+  text-decoration: none;
+  color: black;
+}
+
+.noFavourites{
+    font-size: 45px;
+    position: relative;
+    right: 43px;
+}
+
+.backLinkInFav{
+  color: #b4c8cc;
+  text-decoration: none;
+  font-size: 53px;
+  position: relative;
+  top: 25px;
+  left: 18px;
+}
+
+._backLinkInFav{
+  color: #b4c8cc;
+  text-decoration: none;
+  position: relative;
+  top: 25px;
+  left: 52%;
+}

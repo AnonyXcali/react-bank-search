@@ -1,0 +1,33 @@
+.paginationControls{
+  position: relative;
+  margin-top:10px;
+  left:26%;
+}
+
+._paginationControls{
+  position: relative;
+  margin-top:10px;
+  left:26%;
+  display: flex;
+}
+
+.paginationControls button{
+  background: none;
+  border:none;
+  font-size:20px;
+  cursor: pointer;
+}
+
+
+.maxPage{
+  margin-top: 3px;
+  font-size: 11px;
+  margin-left: 10px;
+}
+
+.pageInput{
+  height: 15px;
+  border: none;
+  padding: -6px;
+  text-align: right;
+}
