@@ -17,16 +17,18 @@ class App extends Component {
     bankData: [],
     filteredBankData: [],
     favouriteBankData: [],
+    paginatedBankData: [],
     keyWord: '',
     isPaginated: false,
     paginationValue: 5,
     currentPage: 1,
+    isFiltered: false,
     size: 0
   }
 
   sendPageToRoot = page => {
     page = page || 1
-    this.sliceDataForPagination(this.state.paginationValue, page);
+    this.sliceDataForPagination(this.state.paginationValue, page, this.state.filteredBankData);
   }
 
   recieveChange = keyword => {
@@ -98,15 +100,30 @@ class App extends Component {
       indexOfFirstKey = 0
       page =  1
     }
+
+    if(this.state.keyWord.length > 0){
+      if(arr){
+        result = arr.slice(indexOfFirstKey, indexOfLastKey);
+        if(result.length <= 0){
+          result = arr.slice(0, pagVal-1)
+        }
+      }else{
+        result = this.state.bankData.slice(indexOfFirstKey, indexOfLastKey);
+      }
+    }else{
+      result = this.state.bankData.slice(indexOfFirstKey, indexOfLastKey);
+    }
+
     this.setState({
       paginationValue: pagVal,
       currentPage: page,
-      filteredBankData: arr ? arr.slice(indexOfFirstKey, indexOfLastKey) : this.state.bankData.slice(indexOfFirstKey, indexOfLastKey)
+      filteredBankData: arr,
+      paginatedBankData: result
     })
   }
 
   recievePaginationReq = val => {
-    this.sliceDataForPagination(val, 1);
+    this.filterBankData(this.state.keyWord, this.state.bankData, val)
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -129,7 +146,7 @@ class App extends Component {
     })
   }
 
-  filterBankData(keyWord, data){
+  filterBankData(keyWord, data, val){
     let filteredData = data.filter( key => {
       if(key.ifsc.toLowerCase().indexOf(keyWord)      >= 0  ||
          key.address.toLowerCase().indexOf(keyWord)   >= 0  ||
@@ -145,20 +162,28 @@ class App extends Component {
     this.setState({
       size: filteredData.length
     })
-    this.sliceDataForPagination(this.state.paginationValue, 1, filteredData)
+    if(val){
+      this.sliceDataForPagination(val, 1, filteredData)
+    }else{
+      this.sliceDataForPagination(this.state.paginationValue, 1, filteredData)
+    }
   }
 
   fetchCityData = (city) => {
-    let bankData = [];
     if(city){
       let cityToBeFetched = city.toUpperCase();
       let url = 'https://vast-shore-74260.herokuapp.com/banks?city='+cityToBeFetched
       if(localStorage.getItem(city)){
         this.setState({
           bankData : JSON.parse(localStorage.getItem(city)) ,
-          size: JSON.parse(localStorage.getItem(city)).length
+          size: JSON.parse(localStorage.getItem(city)).length,
+          filteredBankData: [],
+          paginatedBankData : JSON.parse(localStorage.getItem(city)).slice(0, this.state.paginationValue)
         })
-        this.sliceDataForPagination(this.state.paginationValue, this.state.currentPage, JSON.parse(localStorage.getItem(city)))
+
+        if(this.state.keyWord.length > 0){
+          this.filterBankData(this.state.keyWord, JSON.parse(localStorage.getItem(city)));
+        }
       }else{
         let fetchedData = fetch(url).
         then( res => {
@@ -167,15 +192,20 @@ class App extends Component {
 
           for(let i=0; i<result.length;i++){
             result[0].isFavourite = false;
-          }
+          };
 
           localStorage.setItem(city, JSON.stringify(result));
+
           this.setState({
             bankData : result,
-            size: result.length
+            size: result.length,
+            filteredBankData: [],
+            paginatedBankData : result.slice(0, this.state.paginationValue)
           })
 
-          this.sliceDataForPagination(this.state.paginationValue, this.state.currentPage, result)
+          if(this.state.keyWord.length > 0){
+            this.filterBankData(this.state.keyWord, JSON.parse(localStorage.getItem(city)));
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -208,7 +238,7 @@ class App extends Component {
                   currentCity={this.state.currentCity}
                   totalLength={this.state.size}
                   toggleFavouriteObject={(bank) => {this.toggleFavouriteObject(bank)}}
-                  data={this.state.filteredBankData}/>
+                  data={this.state.paginatedBankData}/>
               </div>
             )
             }
