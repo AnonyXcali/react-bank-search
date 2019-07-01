@@ -90,8 +90,14 @@ class App extends Component {
   }
 
   sliceDataForPagination = (pagVal, page, arr) => {
-    const indexOfLastKey = page * pagVal;
-    const indexOfFirstKey= indexOfLastKey - pagVal;
+    let indexOfLastKey = page * pagVal;
+    let indexOfFirstKey= indexOfLastKey - pagVal;
+    let result;
+    if(indexOfFirstKey > this.state.size){
+      indexOfLastKey = pagVal
+      indexOfFirstKey = 0
+      page =  1
+    }
     this.setState({
       paginationValue: pagVal,
       currentPage: page,
@@ -100,7 +106,7 @@ class App extends Component {
   }
 
   recievePaginationReq = val => {
-    this.sliceDataForPagination(val, this.state.currentPage);
+    this.sliceDataForPagination(val, 1);
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -139,7 +145,7 @@ class App extends Component {
     this.setState({
       size: filteredData.length
     })
-    this.sliceDataForPagination(this.state.paginationValue, this.state.currentPage, filteredData)
+    this.sliceDataForPagination(this.state.paginationValue, 1, filteredData)
   }
 
   fetchCityData = (city) => {
@@ -195,6 +201,7 @@ class App extends Component {
                 </div>
                 <Results
                   currentPaginationValue={this.state.paginationValue}
+                  currentPage={this.state.currentPage}
                   isPaginated={this.state.isPaginated}
                   sendPageToRoot={(page) => {this.sendPageToRoot(page)}}
                   recievePaginationReq={(data) => {this.recievePaginationReq(data)}}

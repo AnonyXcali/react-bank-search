@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PaginationControls from './PaginationControls.js'
 import _PaginationControls from './_PaginationControls.js'
 
 
@@ -76,6 +75,7 @@ class Results extends Component {
         sendPageValue={(page) => {this.sendPageValue(page)}}
         totalLength = {this.props.totalLength}
         currentPaginationValue={this.props.currentPaginationValue}
+        currentPage={this.props.currentPage}
         />
     </div>
     )

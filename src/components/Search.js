@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 
-
-const WAIT_INTERVAL = 1000;
-const ENTER_KEY = 13;
-
 class Search extends Component {
   state = {
     value: ''

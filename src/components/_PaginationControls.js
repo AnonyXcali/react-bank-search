@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class _PaginationControls extends Component {
 
   state = {
-    currentPage : 1,
     max: 0
   }
 
@@ -38,7 +37,7 @@ class _PaginationControls extends Component {
         className='pageInput'
         onChange={this.handlePageChange}
         name='currentPage'
-        value={this.state.currentPage}
+        value={(this.props.currentPage).toString()}
         type='number'
         min='1'
         max={this.generatePageNumbers(this.props.totalLength, this.props.currentPaginationValue)}/>
